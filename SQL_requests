@@ -1,0 +1,21 @@
+Задание 1. Проверка отображения созданного заказа в базе данных
+
+
+SELECT c.login AS couriers_login,
+       COUNT(o.track) AS order_count
+FROM "Couriers" AS c JOIN "Orders" AS o ON c.id = o."courierId"
+WHERE o."inDelivery" = true
+GROUP BY c.id;
+
+
+Задание 2. Корректность отображения статусов заказов
+
+
+SELECT track AS order_track,
+       CASE
+           WHEN "finished" = true THEN 2
+           WHEN "cancelled" = true THEN -1
+           WHEN "inDelivery" = true THEN 1
+           ELSE 0
+       END AS order_status
+FROM "Orders";
